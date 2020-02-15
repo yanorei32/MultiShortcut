@@ -9,9 +9,15 @@ This application makes multiple-application-launch shortcut.
 3. Launch this application. (when launched, this application makes per-directory shortcuts.)
 4. You can launch applications from a per-directory shortcut.
 
+### latest release
+
+[Download](https://github.com/Yanorei32/MultiShortcut/releases)
+
+[Download from BOOTH (for boost)](https://yanorei32.booth.pm/items/1835032)
+
 ## Bug report
 
-* Twitter: @yanorei32
+* Twitter: [@yanorei32](https://twitter.com/yanorei32)
 * GitHub: https://github.com/yanorei32/multishortcut/issues
 
 ## How to build (for developers)

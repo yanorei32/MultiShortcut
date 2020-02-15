@@ -18,9 +18,15 @@
 3. 「本体」を起動すると、同じフォルダに「起動用ショートカット」が作られる
 4. 「起動用ショートカット」を開くと、まとめたフォルダの中の「アプリケーションショートカット」が起動される
 
+### 最新版
+
+[Download](https://github.com/Yanorei32/MultiShortcut/releases)
+
+[Download from BOOTH (for boost)](https://yanorei32.booth.pm/items/1835032)
+
 ## バグ報告先
 
-* Twitter: @yanorei32
+* Twitter: [@yanorei32](https://twitter.com/yanorei32)
 * GitHub: https://github.com/yanorei32/multishortcut/issues
 
 ## コンパイル方法 (開発者向け)
