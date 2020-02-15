@@ -18,7 +18,6 @@
 3. 「本体」を起動すると、同じフォルダに「起動用ショートカット」が作られる
 4. 「起動用ショートカット」を開くと、まとめたフォルダの中の「アプリケーションショートカット」が起動される
 
-
 ## バグ報告先
 
 * Twitter: @yanorei32
@@ -45,4 +44,7 @@ make clean # clean (jp)
 make genzip LANG=en # zip create (en)
 make clean LANG=en # clean (en)
 ```
+
+## アイデア, ロゴ, 制作協力
+* [@FUMI23_VRC](https://twitter.com/intent/user?user_id=1217010323695128578)
 

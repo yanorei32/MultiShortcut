@@ -36,3 +36,6 @@ make genzip LANG=en # zip create (en)
 make clean LANG=en # clean (en)
 ```
 
+## Idea, Logo, Production Cooperation
+* [@FUMI23_VRC](https://twitter.com/intent/user?user_id=1217010323695128578)
+
