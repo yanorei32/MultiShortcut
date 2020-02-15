@@ -1,6 +1,7 @@
 CSC			= /cygdrive/c/windows/microsoft.net/framework/v4.0.30319/csc.exe
 RC			= "/cygdrive/c/Program Files (x86)/Windows Kits/10/bin/10.0.18362.0/x64/rc.exe"
 7ZIP		= "/cygdrive/c/Program Files/7-Zip/7z.exe"
+REPO		= https://github.com/Yanorei32/MultiShortcut
 
 PROJ_NAME	= マルチショートカット
 TARGET		= マルチショートカット(ショートカット作成).exe 
@@ -41,6 +42,16 @@ release: all
 .PHONY: genzip
 genzip: $(PROJ_NAME).zip
 
+$(RELEASE_DIR)/README.url:
+	echo -ne \
+		"[InternetShortcut]\r\nURL=https://github.com/Yanorei32/MultiShortcut/blob/master/README.md" \
+		> "$(RELEASE_DIR)/README.url"
+
+$(RELEASE_DIR)/README(en).url:
+	echo -ne \
+		"[InternetShortcut]\r\nURL=https://github.com/Yanorei32/MultiShortcut/blob/master/README.en.md" \
+		> "$(RELEASE_DIR)/README(en).url"
+
 $(RELEASE_DIR)/LICENSE.txt: LICENSE
 	-mkdir -p $(RELEASE_DIR)
 	cp \
@@ -60,6 +71,7 @@ demo_files: demo/*
 res/resource.res: res/resource.rc res/*.ico
 	cd res && $(RC) /r resource.rc
 
+
 $(RELEASE_DIR)/$(TARGET): $(SRC) res/resource.res
 	-mkdir -p $(RELEASE_DIR)
 	$(CSC) $(CSC_FLAGS) "/out:$(RELEASE_DIR)\\$(TARGET)" $(SRC)
@@ -67,6 +79,8 @@ $(RELEASE_DIR)/$(TARGET): $(SRC) res/resource.res
 .PHONY: all
 all: $(RELEASE_DIR)/$(TARGET) \
 	$(RELEASE_DIR)/LICENSE.txt \
+	$(RELEASE_DIR)/README.url \
+	$(RELEASE_DIR)/README(en).url \
 	demo_files
 
 $(PROJ_NAME).zip: all
