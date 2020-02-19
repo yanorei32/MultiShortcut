@@ -1,9 +1,13 @@
 using System;
-using System.IO;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows.Forms;
 
 class Program {
 #if english
@@ -59,21 +63,30 @@ class Program {
 		Marshal.FinalReleaseComObject(shell);
 	}
 
+	static ScheduledTask FilePath2ScheduledTask(string path) {
+		var regex = new Regex(@"(?<=\A\+)\d+(?=s)", RegexOptions.IgnoreCase);
+
+		var match = regex.Match(Path.GetFileName(path));
+
+		if (match.Success)
+			return new ScheduledTask(path, int.Parse(match.Value));
+
+		return new ScheduledTask(path, 0);
+	}
+
 	static void launchDirectory(string dirPath) {
-		var startedCount = 0;
+		var tlist = new List<ScheduledTask>();
 
 		foreach (
 			var file in Directory.GetFileSystemEntries(dirPath, "*.url")
 		) {
-			Process.Start(file);
-			++ startedCount;
+			tlist.Add(FilePath2ScheduledTask(file));
 		}
 
 		foreach (
 			var file in Directory.GetFileSystemEntries(dirPath, "*.website")
 		) {
-			Process.Start(file);
-			++ startedCount;
+			tlist.Add(FilePath2ScheduledTask(file));
 		}
 
 		foreach (
@@ -82,26 +95,43 @@ class Program {
 			if (isSelfShortcut(file))
 				continue;
 
-			Process.Start(file);
-			++ startedCount;
+			tlist.Add(FilePath2ScheduledTask(file));
 		}
 
-		if (startedCount != 0)
-			return;
-
-		MessageBox.Show(
-			string.Format(
+		if (!tlist.Any()) {
+			MessageBox.Show(
+				string.Format(
 #if english
-				"Launch shortcut not found in directory ({0})",
+					"Launch shortcut not found in directory ({0})",
 #else
-				"フォルダ ({0}) 内にショートカットが存在しません。",
+					"フォルダ ({0}) 内にショートカットが存在しません。",
 #endif
-				Path.GetFileName(dirPath)
-			),
-			APPLICATION_NAME,
-			MessageBoxButtons.OK,
-			MessageBoxIcon.Information
-		);
+					Path.GetFileName(dirPath)
+				),
+				APPLICATION_NAME,
+				MessageBoxButtons.OK,
+				MessageBoxIcon.Information
+			);
+
+			return;
+		}
+
+
+		int queueCount = tlist.Count();
+
+		while (true) {
+			var currentTask = tlist.Where(t => t.Countdown());
+
+			foreach (var task in currentTask) {
+				Process.Start(task.Path);
+				--queueCount;
+			}
+
+			if (queueCount == 0)
+				return;
+
+			Thread.Sleep(1000);
+		}
 	}
 
 	static void createShortcuts() {

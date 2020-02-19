@@ -9,6 +9,11 @@ This application makes multiple-application-launch shortcut.
 3. Launch this application. (when launched, this application makes per-directory shortcuts.)
 4. You can launch applications from a per-directory shortcut.
 
+### other function
+
+#### Delayed launch <small>v1.1+</small>
+If you add prefix (like `+5s`) to application shortcut filename, it will be delayed launch.
+
 ### latest release
 
 [Download](https://github.com/Yanorei32/MultiShortcut/releases)

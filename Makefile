@@ -5,7 +5,8 @@ REPO		= https://github.com/Yanorei32/MultiShortcut
 
 PROJ_NAME	= マルチショートカット
 TARGET		= マルチショートカット(ショートカット作成).exe 
-SRC			= src\\Program.cs
+SRC			= src\\Program.cs \
+			  src\\ScheduledTask.cs
 SAMPLE_DIR	= サンプル
 SET_DIR		= セット1
 DROP_HERE	= ここに入れる
